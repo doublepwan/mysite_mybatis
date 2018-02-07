@@ -32,4 +32,8 @@ public class GuestbookDao {
 		map.put("password", password);
 		sqlSession.delete("guestbook.delete", map);
 	}
+	
+	public List<GuestbookVo> selectListByPage(int page){
+		return sqlSession.selectList("guestbook.selectListByPage", page);
+	}
 }

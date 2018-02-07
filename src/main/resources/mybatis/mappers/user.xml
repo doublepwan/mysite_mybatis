@@ -27,6 +27,12 @@
 			update users set name = #{name}, password = #{password}, gender = #{gender} where no = #{no}
 		]]>
 	</update>
+	
+	<select id="checkEmail" resultType="UserVo">
+		<![CDATA[
+			select no, name, email, gender from users where email = #{email}
+		]]>
+	</select>
 
 </mapper>
 

@@ -3,12 +3,31 @@
 
 <mapper namespace="board">
 
-	<select id="getList" resultType="BoardVo">
+	<select id="getTotalCount" parameterType="map" resultType="int">
 		<![CDATA[
-			select b.no, u.name, b.title, b.content, b.reg_date regDate, b.hit, b.user_no userNo 
-			from board b, users u 
-			where b.user_no = u.no
-			order by reg_date desc
+			select count(*) from board
+		]]>
+	</select>
+
+	<select id="getList" parameterType="map" resultType="BoardVo">
+		<![CDATA[
+			 select * from 
+			
+				(select t.*, rownum r from
+						   
+					(select   
+  							 b.no,   
+						     u.name,  
+							 b.title,  
+							 b.content,  
+							 b.reg_date,  
+							 b.hit,  
+							 b.user_no  
+			from board b,  
+			     users u  
+			where b.user_no = u.no  
+			order by b.reg_date desc) t) 
+			where r between #{start} and #{end} 
 		]]>
 	</select>
 
@@ -17,26 +36,26 @@
 			select no, title, content, reg_date regDate, hit, user_no userNo from board	where no = #{no}
 		]]>
 	</select>
-	
+
 	<update id="hitUp" parameterType="int">
 		<![CDATA[
 			update board set hit = hit+1 where no = #{no}
 		]]>
 	</update>
-	
+
 	<insert id="insert" parameterType="BoardVo">
 	<![CDATA[
 		insert into board(no,title,content,reg_date,hit,user_no)
 	    values (seq_board_no.nextval, #{title}, #{content}, default, default, #{userNo})
 	]]>
 	</insert>
-	
+
 	<update id="update" parameterType="BoardVo">
 		<![CDATA[
 			update board set title = #{title}, content = #{content} where no = #{no}
 		]]>
 	</update>
-	
+
 	<delete id="delete" parameterType="String">
 		<![CDATA[
 			delete from board where no = #{no}

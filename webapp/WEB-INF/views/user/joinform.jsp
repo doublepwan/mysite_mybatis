@@ -5,6 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="${pageContext.request.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.12.4.js"></script>
 	<title>Insert title here</title>
 </head>
 <body>
@@ -27,7 +28,9 @@
 						<input id="email" name="email" type="text" value="">
 						
 						<input type="hidden" name="a" value="idCheck">
-						<input type="button" value="id 중복체크">
+						<input type="button" id="btnIdCheck" value="id 중복체크">
+						
+						<div id="checkMsg"></div>
 						
 						<label class="block-label">패스워드</label>
 						<input name="password" type="password" value="">
@@ -57,4 +60,43 @@
 	</div> <!-- /container -->
 
 </body>
+
+<script type="text/javascript">
+	$("#btnIdCheck").on("click",function(){
+		
+		var email = $("#email").val();
+		var password = "1234";
+		console.log(email);
+		
+		var userVo = {
+				email: email,
+				password: password
+				}
+		
+		$.ajax({
+			
+			url : "${pageContext.request.contextPath }/user/api/emailCheck",		
+			type : "post",
+			contentType : "application/json",
+			data : JSON.stringify(userVo),
+
+			dataType : "json",
+			success : function(result){
+				/*성공시 처리해야될 코드 작성*/
+				console.log(result);
+				if(result == true){
+					$("#checkMsg").html("<strong>사용 가능한 이메일 입니다.</strong>").css("color","blue");
+				}
+				else{
+					$("#checkMsg").html("<strong>사용 불가능한 이메일 입니다.</strong>").css("color","red");
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+
+		
+	});
+</script>
 </html>

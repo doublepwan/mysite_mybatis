@@ -14,7 +14,7 @@ public class UserService {
 	
 	public UserVo login(String email, String password) {
 		
-		return userDao.getUser(email, password);
+		return userDao.selectUser(email, password);
 	}
 
 	public void join(UserVo userVo) {
@@ -29,7 +29,19 @@ public class UserService {
 
 	public UserVo getUser(String no) {
 		
-		return userDao.getOneUserByNo(no);
+		return userDao.selectUser(no);
 	}
-
+	
+	public boolean emailCheck(String email) {
+		boolean result;
+		UserVo userVo = userDao.emailCheck(email);
+		if(userVo != null) {
+			result = false;
+		}
+		else {
+			result = true;
+		}
+		return result;
+	}
+	
 }

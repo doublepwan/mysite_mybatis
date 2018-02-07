@@ -39,4 +39,9 @@ public class GuestbookController {
 		guestService.delete(guestBookVo.getNo(), guestBookVo.getPassword());
 		return"redirect:/guestbook/list";
 	}
+	
+	@RequestMapping("/guestbook/listajax")
+	public String listAjax() {
+		return "guestbook/listAjax";
+	}
 }

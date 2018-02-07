@@ -1,6 +1,7 @@
 package com.javaex.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,9 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 
-	public List<BoardVo> getList() {
+	public List<BoardVo> getList(Map map) {
 		
-		return boardDao.getList();
+		return boardDao.getList(map);
 	}
 
 	public BoardVo getOne(String no) {
@@ -39,6 +40,11 @@ public class BoardService {
 
 	public void delete(String no) {
 		boardDao.delete(no);
+	}
+
+	public int getTotalCount(Map map) {
+		
+		return boardDao.getTotalCount(map);
 	}
 
 

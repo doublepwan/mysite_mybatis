@@ -15,7 +15,7 @@ public class UserDao {
 	@Autowired
 	private SqlSession sqlsession; 
 	
-	public UserVo getUser(String email, String password) {
+	public UserVo selectUser(String email, String password) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
@@ -35,9 +35,14 @@ public class UserDao {
 		return affected;
 	}
 
-	public UserVo getOneUserByNo(String no) {
+	public UserVo selectUser(String no) {
 		
 		return sqlsession.selectOne("user.getOneUserByNo", no);
+	}
+	
+	public UserVo emailCheck(String email) {
+		UserVo userVo = sqlsession.selectOne("user.checkEmail", email);
+		return userVo;
 	}
 
 }
