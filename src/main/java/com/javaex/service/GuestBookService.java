@@ -26,7 +26,6 @@ public class GuestBookService {
 	public void insert(GuestbookVo vo) {
 		guestDao.insert(vo);
 	}
-	
 	public List<GuestbookVo> guestBookListPage(int page){
 		return guestDao.selectListByPage(page);
 	}

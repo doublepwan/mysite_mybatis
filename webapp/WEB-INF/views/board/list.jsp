@@ -37,10 +37,10 @@
                      	</c:when>
                     
                     	<c:otherwise>
-							<c:forEach items="${bList }" var="bList" varStatus="loop">
+							<c:forEach items="${bList }" var="bList">
 								<tr>
-									<td>${totalCount - (((nowPage - 1) * pageSize) + loop.index) }</td>
-									<%-- <td>${bList.no }</td> --%>
+									<%-- <td>${totalCount - (((nowPage - 1) * pageSize) + loop.index) }</td> --%>
+									<td>${bList.no }</td>
 									<td><a href="${pageContext.request.contextPath }/board/view?no=${bList.no }">${bList.title }</a></td>
 									<td>${bList.name }</td>
 									<td>${bList.hit }</td>
@@ -57,20 +57,15 @@
 				</table>
 				<div class="pager">
 				<!-- 페이징 -->
-					<%-- <table width="100%">
-						<tr align="center">
-							<td>${paging}</td>
-						</tr>
-					</table>	 --%>
 					<ul>
-						<li>${paging }</li>
-						<!--  <li><a href="">◀</a></li>
+						<%-- <li>${paging }</li> --%>
+						 <li><a href="">◀</a></li>
 						<li><a href="">1</a></li>
 						<li><a href="">2</a></li>
 						<li class="selected">3</li>
 						<li><a href="">4</a></li>
 						<li>5</li>
-						<li><a href="">▶</a></li> -->
+						<li><a href="">▶</a></li>
 					</ul>
 				</div>				
 				<div class="bottom">

@@ -15,8 +15,8 @@ public class BoardDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<BoardVo> getList(Map map) {
-		List<BoardVo> list = sqlSession.selectList("board.getList",map);
+	public List<BoardVo> getList() {
+		List<BoardVo> list = sqlSession.selectList("board.getList");
 		return list;
 	}
 

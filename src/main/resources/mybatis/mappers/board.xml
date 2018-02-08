@@ -11,23 +11,18 @@
 
 	<select id="getList" parameterType="map" resultType="BoardVo">
 		<![CDATA[
-			 select * from 
-			
-				(select t.*, rownum r from
-						   
-					(select   
+			select   
   							 b.no,   
 						     u.name,  
 							 b.title,  
 							 b.content,  
-							 b.reg_date,  
+							 b.reg_date regDate,  
 							 b.hit,  
 							 b.user_no  
 			from board b,  
 			     users u  
 			where b.user_no = u.no  
-			order by b.reg_date desc) t) 
-			where r between #{start} and #{end} 
+			order by b.reg_date desc 
 		]]>
 	</select>
 

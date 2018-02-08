@@ -36,4 +36,5 @@ public class GuestbookDao {
 	public List<GuestbookVo> selectListByPage(int page){
 		return sqlSession.selectList("guestbook.selectListByPage", page);
 	}
+	
 }

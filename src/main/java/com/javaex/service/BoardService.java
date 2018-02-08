@@ -15,9 +15,9 @@ public class BoardService {
 	@Autowired
 	private BoardDao boardDao;
 
-	public List<BoardVo> getList(Map map) {
+	public List<BoardVo> getList() {
 		
-		return boardDao.getList(map);
+		return boardDao.getList();
 	}
 
 	public BoardVo getOne(String no) {
