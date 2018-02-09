@@ -3,7 +3,7 @@
 
 <mapper namespace="guestbook">
 
-	<insert id="apiinsert" parameterType="GuestbookVo">
+	<insert id="insertApi" parameterType="GuestbookVo">
 
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			select
@@ -16,7 +16,7 @@
 		]]>
 	</insert>
 	
-	<insert id="insert" parameterType="GuestBookVo">
+	<insert id="insert" parameterType="GuestbookVo">
 		<![CDATA[
 			insert into guestbook
 			values (seq_guest_no.nextval, #{name}, #{password}, #{content}, default) 
@@ -49,10 +49,16 @@
 	]]>
 	</select>
 
-	<select id="getOne" parameterType="int" resultType="GuestBookVo">
+	<select id="getOne" parameterType="int" resultType="GuestbookVo">
 		<![CDATA[
 			select no, name, password, contente reg_date regDate from guestbook where no = #{no}
 		]]>
 	</select>
+	
+	<delete id="deleteApi" parameterType="Map">
+		<![CDATA[
+			delete from guestbook where no = #{no} and password = #{password}
+		]]>
+	</delete>
 
 </mapper>

@@ -139,7 +139,6 @@
 			success : function(guestBookList) {
 				/*성공시 처리해야될 코드 작성*/
 				console.log(guestBookList);
-
 					render(guestBookList[0], "up");
 				
 			},

@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.javaex.vo.GuestbookVo;
+import com.javaex.vo.GuestBookVo;
 
 @Repository
 public class GuestbookDao { 
@@ -16,12 +16,12 @@ public class GuestbookDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<GuestbookVo> getList() {
+	public List<GuestBookVo> getList() {
 		
-		List<GuestbookVo> list = sqlSession.selectList("guestbook.getList");
+		List<GuestBookVo> list = sqlSession.selectList("guestbook.getList");
 		return list;
 	}
-	public void insert(GuestbookVo vo) {
+	public void insert(GuestBookVo vo) {
 		
 		 sqlSession.insert("guestbook.insert", vo);
 	}
@@ -33,8 +33,12 @@ public class GuestbookDao {
 		sqlSession.delete("guestbook.delete", map);
 	}
 	
-	public List<GuestbookVo> selectListByPage(int page){
+	public List<GuestBookVo> selectListByPage(int page){
 		return sqlSession.selectList("guestbook.selectListByPage", page);
+	}
+	public GuestBookVo getOne(GuestBookVo guestBookVo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
