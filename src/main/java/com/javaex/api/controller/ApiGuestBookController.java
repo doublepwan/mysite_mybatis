@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.service.GuestBookService;
 
-import com.javaex.vo.GuestBookVo;
+import com.javaex.vo.GuestbookVo;
 
 @Controller
 
@@ -29,11 +29,11 @@ public class ApiGuestBookController {
 	@ResponseBody
 	@RequestMapping("/guest/api/listajax")
 
-	public List<GuestBookVo> apiList(@RequestParam("page") int page) {
+	public List<GuestbookVo> apiList(@RequestParam("page") int page) {
 
 		System.out.println(page);
 
-		List<GuestBookVo> list = guestBookService.guestBookListPage(page);
+		List<GuestbookVo> list = guestBookService.guestBookListPage(page);
 
 		System.out.println(list.toString());
 
@@ -44,24 +44,25 @@ public class ApiGuestBookController {
 	@ResponseBody
 	@RequestMapping("/guest/api/insertajax")
 
-	public GuestBookVo apiInsert(@ModelAttribute GuestBookVo guestBookVo) {
+	public GuestbookVo apiInsert(@ModelAttribute GuestbookVo guestBookVo) {
 
-		guestBookService.insertApi(guestBookVo);
-
-		return guestBookService.getOne(guestBookVo);
+		GuestbookVo guestVo = guestBookService.insertApi(guestBookVo);
+		return guestVo;
 
 	}
 
 	@ResponseBody
 	@RequestMapping("/guest/api/deleteajax")
 
-	public int apiDeleteGuest(@ModelAttribute GuestBookVo guestBookVo) {
+	public int apiDeleteGuest(@ModelAttribute GuestbookVo guestBookVo) {
 
-		guestBookService.deleteApi(guestBookVo);
-
-		int no = guestBookVo.getNo();
-
-		return no;
+		int count = guestBookService.delete(guestBookVo);
+		System.out.println(count);
+		if (count != 0) { // DB삭제 성공 PK값을 보낸다.
+			return guestBookVo.getNo();
+		} else { // 실패시 -1 을 보낸다.
+			return -1;
+		}
 
 	}
 

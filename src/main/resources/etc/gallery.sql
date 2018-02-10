@@ -1,5 +1,5 @@
 
-select g.gallery_no, u.name, g.title, g.content, g.reg_date, f.gallery_file_realname
+select g.gallery_no, u.name, g.title, g.content, g.reg_date, g.gallery_hit, g.gallery_downcount, f.gallery_file_realname
 from gallery g, gallery_file f, users u
 where g.gallery_file_no = f.gallery_file_no and g.user_no = u.user_no
 order by g.reg_date desc
@@ -12,6 +12,8 @@ create table gallery
     gallery_title varchar2(2000) not null,
     gallery_content varchar2(2000) not null,
     reg_date date default sysdate,
+    gallery_hit number default 0, not null,
+    gallery_downcount number default 0, not null,
     user_no number not null,
     gallery_file_no number not null,
     primary key (gallery_no)

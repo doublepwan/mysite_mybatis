@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.service.GuestBookService;
-import com.javaex.vo.GuestBookVo;
+import com.javaex.vo.GuestbookVo;
 
 @Controller
 public class GuestbookController {
@@ -20,12 +20,12 @@ public class GuestbookController {
 	
 	@RequestMapping("/guestbook/list")
 	public String list(Model model) {
-		List<GuestBookVo> list = guestService.getList();
+		List<GuestbookVo> list = guestService.getList();
 		model.addAttribute("gList", list);
 		return "guestbook/list";
 	}
 	@RequestMapping("/guestbook/insert")
-	public String add(@ModelAttribute GuestBookVo vo) {
+	public String add(@ModelAttribute GuestbookVo vo) {
 		guestService.insert(vo);
 		return"redirect:/guestbook/list";
 	}
@@ -35,8 +35,8 @@ public class GuestbookController {
 		return"/guestbook/deleteform";
 	}
 	@RequestMapping("/guestbook/delete")
-	public String delete(@ModelAttribute GuestBookVo guestBookVo) {
-		guestService.delete(guestBookVo.getNo(), guestBookVo.getPassword());
+	public String delete(@ModelAttribute GuestbookVo guestBookVo) {
+		guestService.delete(guestBookVo);
 		return"redirect:/guestbook/list";
 	}
 	

@@ -3,27 +3,20 @@
 
 <mapper namespace="guestbook">
 
-	<insert id="insertApi" parameterType="GuestbookVo">
-
+	<insert id="insert" parameterType="GuestbookVo">
+		
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			select
 			seq_guest_no.nextval from dual
 		</selectKey>
-	
-		<![CDATA[
-			insert into guestbook
-			values (seq_guest_no.nextval, #{name}, #{password}, #{content}, default) 
-		]]>
-	</insert>
-	
-	<insert id="insert" parameterType="GuestbookVo">
+		
 		<![CDATA[
 			insert into guestbook
 			values (seq_guest_no.nextval, #{name}, #{password}, #{content}, default) 
 		]]>
 	</insert>
 
-	<delete id="delete" parameterType="Map">
+	<delete id="delete" parameterType="GuestbookVo">
 		<![CDATA[
 			delete from guestbook where no = #{no} and password = #{password}
 		]]>
@@ -55,10 +48,4 @@
 		]]>
 	</select>
 	
-	<delete id="deleteApi" parameterType="Map">
-		<![CDATA[
-			delete from guestbook where no = #{no} and password = #{password}
-		]]>
-	</delete>
-
 </mapper>

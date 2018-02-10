@@ -8,7 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.javaex.vo.GuestBookVo;
+import com.javaex.vo.GuestbookVo;
+
 
 @Repository
 public class GuestbookDao { 
@@ -16,29 +17,27 @@ public class GuestbookDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<GuestBookVo> getList() {
+	public List<GuestbookVo> getList() {
 		
-		List<GuestBookVo> list = sqlSession.selectList("guestbook.getList");
+		List<GuestbookVo> list = sqlSession.selectList("guestbook.getList");
 		return list;
 	}
-	public void insert(GuestBookVo vo) {
+	public int insert(GuestbookVo vo) {
 		
 		 sqlSession.insert("guestbook.insert", vo);
+		 return vo.getNo();
 	}
-	public void delete(int no, String password) { 
+	public int delete(GuestbookVo guestVo) { 
 		                  
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("no", no);
-		map.put("password", password);
-		sqlSession.delete("guestbook.delete", map);
+		return sqlSession.delete("guestbook.delete", guestVo);
 	}
 	
-	public List<GuestBookVo> selectListByPage(int page){
+	public List<GuestbookVo> selectListByPage(int page){
 		return sqlSession.selectList("guestbook.selectListByPage", page);
 	}
-	public GuestBookVo getOne(GuestBookVo guestBookVo) {
-		// TODO Auto-generated method stub
-		return null;
+	public GuestbookVo getOne(int no) {
+		
+		return sqlSession.selectOne("guestbook.getOne", no);
 	}
 	
 }
